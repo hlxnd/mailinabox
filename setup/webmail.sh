@@ -39,10 +39,11 @@ VERSION=1.3.6
 HASH=ece5cfc9c7af0cbe90c0065ef33e85ed42991830
 PERSISTENT_LOGIN_VERSION=dc5ca3d3f4415cc41edb2fde533c8a8628a94c76
 HTML5_NOTIFIER_VERSION=4b370e3cd60dabd2f428a26f45b677ad1b7118d5
+AUTOMATIC_ADDRESSBOOK_NG_VERSION=e2f75496b8a0168b36d0b0ae878c5b465738e932
 CARDDAV_VERSION=2.0.4
 CARDDAV_HASH=d93f3cfb3038a519e71c7c3212c1d16f5da609a4
 
-UPDATE_KEY=$VERSION:$PERSISTENT_LOGIN_VERSION:$HTML5_NOTIFIER_VERSION:$CARDDAV_VERSION
+UPDATE_KEY=$VERSION:$PERSISTENT_LOGIN_VERSION:$HTML5_NOTIFIER_VERSION:$CARDDAV_VERSION:$AUTOMATIC_ADDRESSBOOK_NG_VERSION
 
 # paths that are often reused.
 RCM_DIR=/usr/local/lib/roundcubemail
@@ -73,6 +74,9 @@ if [ $needs_update == 1 ]; then
 
 	# install roundcube html5_notifier plugin
 	git_clone https://github.com/kitist/html5_notifier.git $HTML5_NOTIFIER_VERSION '' ${RCM_PLUGIN_DIR}/html5_notifier
+
+	# install roundcube automatic_addressbook_ng plugin
+	git_clone https://github.com/teonsystems/roundcube-plugin-automatic-addressbook-ng.git $AUTOMATIC_ADDRESSBOOK_NG_VERSION '' ${RCM_PLUGIN_DIR}/automatic_addressbook_ng
 
 	# download and verify the full release of the carddav plugin
 	wget_verify \
@@ -129,7 +133,7 @@ cat > $RCM_CONFIG <<EOF;
 \$config['support_url'] = 'https://mailinabox.email/';
 \$config['product_name'] = '$PRIMARY_HOSTNAME Webmail';
 \$config['des_key'] = '$SECRET_KEY';
-\$config['plugins'] = array('html5_notifier', 'archive', 'zipdownload', 'password', 'managesieve', 'jqueryui', 'persistent_login', 'carddav');
+\$config['plugins'] = array('html5_notifier', 'archive', 'zipdownload', 'password', 'managesieve', 'jqueryui', 'persistent_login', 'carddav', 'automatic_addressbook_ng');
 \$config['skin'] = 'larry';
 \$config['login_autocomplete'] = 2;
 \$config['password_charset'] = 'UTF-8';
